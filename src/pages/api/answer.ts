@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-// import { postAnswer } from "@/services/answer";
+import { postAnswer } from "@/services/answer";
 
 function genAnswerInfo(reqBody: any) {
   const answerList: any[] = [];
@@ -30,12 +30,9 @@ export default async function handler(
   // 获取并格式化表单数据
   const answerInfo = genAnswerInfo(req.body);
 
-  console.log("answerInfo", answerInfo);
-
   try {
     // 提交到服务端 Mock
-    // const resData = await postAnswer(answerInfo)
-    const resData = { errno: 10 };
+    const resData = await postAnswer(answerInfo)
     if (resData.errno === 0) {
       // 如果提交成功了
       res.redirect("/success");
