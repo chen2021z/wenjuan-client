@@ -1,5 +1,8 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
+import QuestionInput from "@/components/QuestionComponents/QuestionInput";
+import QuestionRadio from "@/components/QuestionComponents/QuestionRadio";
+import styles from "@/styles/Question.module.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +20,35 @@ export default function Question(props: PropsType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>{props.id}</h1>
+        <input type="hidden" name="questionId" value={props.id} />
+
+        <form action="">
+          <div className={styles.componentWrapper}>
+            <QuestionInput
+              fe_id="c1"
+              props={{ title: "输入姓名", placeholder: "palcehoder" }}
+            />
+          </div>
+
+          <div className={styles.componentWrapper}>
+            <QuestionRadio
+              fe_id="c2"
+              props={{
+                title: "性别",
+                options: [
+                  { value: "male", text: "男" },
+                  { value: "female", text: "女" },
+                ],
+                value: "male",
+                isVertical: true,
+              }}
+            />
+          </div>
+
+          <div className={styles.submitBtnContainer}>
+            <button type="submit">提交</button>
+          </div>
+        </form>
       </main>
     </>
   );
