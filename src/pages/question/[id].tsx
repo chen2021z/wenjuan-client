@@ -20,9 +20,8 @@ export default function Question(props: PropsType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <input type="hidden" name="questionId" value={props.id} />
-
-        <form action="">
+        <form method="post" action="/api/answer">
+          <input type="hidden" name="questionId" value={props.id} />
           <div className={styles.componentWrapper}>
             <QuestionInput
               fe_id="c1"
