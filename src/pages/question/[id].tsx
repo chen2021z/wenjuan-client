@@ -5,6 +5,7 @@ import QuestionRadio from "@/components/QuestionComponents/QuestionRadio";
 import styles from "@/styles/Question.module.scss";
 import PageWrapper from "@/components/PageWrapper";
 import { getQuestionById } from "@/services/question";
+import { getComponent } from "@/components/QuestionComponents";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,31 +65,26 @@ export default function Question(props: PropsType) {
       </PageWrapper>
     );
   }
+
+  // 遍历组件
+  const ComponentListElem = (
+    <>
+      {componentList.map((c) => {
+        const ComponentElem = getComponent(c);
+        return (
+          <div key={c.fe_id} className={styles.componentWrapper}>
+            {ComponentElem}
+          </div>
+        );
+      })}
+    </>
+  );
   return (
     <PageWrapper title={title} desc={desc}>
       <form method="post" action="/api/answer">
         <input type="hidden" name="questionId" value={id} />
-        <div className={styles.componentWrapper}>
-          <QuestionInput
-            fe_id="c1"
-            props={{ title: "输入姓名", placeholder: "palcehoder" }}
-          />
-        </div>
 
-        <div className={styles.componentWrapper}>
-          <QuestionRadio
-            fe_id="c2"
-            props={{
-              title: "性别",
-              options: [
-                { value: "male", text: "男" },
-                { value: "female", text: "女" },
-              ],
-              value: "male",
-              isVertical: true,
-            }}
-          />
-        </div>
+        {ComponentListElem}
 
         <div className={styles.submitBtnContainer}>
           <button type="submit">提交</button>
